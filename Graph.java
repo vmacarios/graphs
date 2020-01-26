@@ -5,31 +5,30 @@ import java.util.Map;
 
 public class Graph {
 	private Map<Vertex, List<Vertex>> adjVertices;
-	
 	public Graph() {
 		this.adjVertices = new HashMap<Vertex, List<Vertex>>();
 	}
 
-	void addVertex(String label) {
-		adjVertices.putIfAbsent(new Vertex(label), new ArrayList<>());
+	void addVertex(String name) {
+		adjVertices.putIfAbsent(new Vertex(name), new ArrayList<>());
 	}
-	
-	void removeVertex(String label) {
-		Vertex v = new Vertex(label);
+
+	void removeVertex(String name) {
+		Vertex v = new Vertex(name);
 		adjVertices.values().stream().forEach(e -> e.remove(v));
-		adjVertices.remove(new Vertex(label));
+		adjVertices.remove(new Vertex(name));
 	}
-	
-	void addEdge(String label1, String label2) {
-		Vertex v1 = new Vertex(label1);
-		Vertex v2 = new Vertex(label2);
+
+	void addEdge(String name1, String name2) {
+		Vertex v1 = new Vertex(name1);
+		Vertex v2 = new Vertex(name2);
 		adjVertices.get(v1).add(v2);
 		adjVertices.get(v2).add(v1);
 	}
-	
-	void removeEdge(String label1, String label2) {
-		Vertex v1 = new Vertex(label1);
-		Vertex v2 = new Vertex(label2);
+
+	void removeEdge(String name1, String name2) {
+		Vertex v1 = new Vertex(name1);
+		Vertex v2 = new Vertex(name2);
 		List<Vertex> eV1 = adjVertices.get(v1);
 		List<Vertex> eV2 = adjVertices.get(v2);
 		if (eV1 != null)
@@ -37,36 +36,18 @@ public class Graph {
 		if (eV2 != null)
 			eV2.remove(v1);
 	}
-	
-	Graph createGraph() {
-		Graph graph = new Graph();
-		graph.addVertex("Bob");
-		graph.addVertex("Alice");
-		graph.addVertex("Mark");
-		graph.addVertex("Rob");
-		graph.addVertex("Maria");
-		graph.addEdge("Bob", "Alice");
-		graph.addEdge("Bob", "Rob");
-		graph.addEdge("Alice", "Mark");
-		graph.addEdge("Rob", "Mark");
-		graph.addEdge("Alice", "Maria");
-		graph.addEdge("Rob", "Maria");
-		return graph;
+
+	List<Vertex> getAdjVertices(String name) {
+		return adjVertices.get(new Vertex(name));
 	}
-	
-	
-	
-	List<Vertex> getAdjVertices(String label) {
-		return adjVertices.get(new Vertex(label));
-	}
-	
+
 	String printGraph() {
 		StringBuffer sb = new StringBuffer();
 		for(Vertex v : adjVertices.keySet()) {
 			sb.append(v);
 			sb.append(adjVertices.get(v));
+			sb.append("\n");
 		}
 		return sb.toString();
 	}
- 
 }

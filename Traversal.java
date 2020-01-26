@@ -14,13 +14,13 @@ public class Traversal {
 			if (!visited.contains(vertex)) {
 				visited.add(vertex);
 				for (Vertex v : graph.getAdjVertices(vertex)) {
-					stack.push(v.label);
+					stack.push(v.name);
 				}
 			}
 		}
 		return visited;
 	}
-	
+
 	static Set<String> breadthFirstTraversal(Graph graph, String root) {
 		Set<String> visited = new LinkedHashSet<String>();
 		Queue<String> queue = new LinkedList<String>();
@@ -29,9 +29,9 @@ public class Traversal {
 		while (!queue.isEmpty()) {
 			String vertex = queue.poll();
 			for (Vertex v : graph.getAdjVertices(vertex)) {
-				if (!visited.contains(v.label)) {
-					visited.add(v.label);
-					queue.add(v.label);
+				if (!visited.contains(v.name)) {
+					visited.add(v.name);
+					queue.add(v.name);
 				}
 			}
 		}
